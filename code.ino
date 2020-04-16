@@ -124,11 +124,11 @@ void loop() {
     if (drv_status.sg_result > 1020) { // Kein Wiederstand
       if (OCR1A > MAX_SPEED)
       {
-        Serial.println("werde schneller!");
         a += 1;
       }
-      if (a = 100) // langsamer hoch gehen!
+      if (a = 10000) // langsamer hoch gehen!
       {
+        Serial.println("werde schneller!");
         a = 0;
         OCR1A -= 10;
       }
@@ -136,10 +136,9 @@ void loop() {
     else { // Wiederstand
       if (OCR1A < MAX_SPEED)
       {
-        Serial.println("werde langsamer!");
         b += 1;
       }
-      if (a = 100) // langsamer runter gehen!
+      if (a = 10000) // langsamer runter gehen!
       {
         Serial.println("werde langsamer!");
         b = 0;
