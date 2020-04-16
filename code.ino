@@ -16,7 +16,7 @@
  */
 #include <TMCStepper.h>
 
-#define MAX_SPEED       500 // In timer value
+#define MAX_SPEED       1000 // In timer value
 #define MIN_SPEED      5000
 
 #define STALL_VALUE      50 // [-64..63]
@@ -68,7 +68,7 @@ void setup() {
   driver.begin();
   driver.toff(4);
   driver.blank_time(24);
-  driver.rms_current(1000); // mA
+  driver.rms_current(2000); // mA
   driver.microsteps(16);
   driver.TCOOLTHRS(0xFFFFF); // 20bit max
   driver.THIGH(0);
@@ -95,6 +95,7 @@ void setup() {
 }
 
 int a = 0;
+int b = 0;
 void loop() {
   static uint32_t last_time=0;
   uint32_t ms = millis();
@@ -113,7 +114,7 @@ void loop() {
     else if (read_byte == '.') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
-  if((ms-last_time) > 100) { //run every 0.1s
+  if((ms-last_time) > 50) { //run every 0.1s
     last_time = ms;
 
     DRV_STATUS_t drv_status{0};
@@ -125,11 +126,16 @@ void loop() {
       if (a = 100) // langsamer hoch gehen!
       {
         a = 0;
-        OCR1A -= 1;
+        OCR1A -= 10;
       }
     }
     else { // Wiederstand
-      if (OCR1A < MAX_SPEED) OCR1A += 20;
+      if (OCR1A < MAX_SPEED) b += 1;
+      if (a = 100) // langsamer runter gehen!
+      {
+        b = 0;
+        OCR1A += 100;
+      }
     }
   }
 }
