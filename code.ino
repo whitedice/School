@@ -16,7 +16,7 @@
  */
 #include <TMCStepper.h>
 
-#define MAX_SPEED        40 // In timer value
+#define MAX_SPEED       500 // In timer value
 #define MIN_SPEED      5000
 
 #define STALL_VALUE      50 // [-64..63]
@@ -112,17 +112,17 @@ void loop() {
     else if (read_byte == '.') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
-  if((ms-last_time) > 100) { //run every 0.1s
+  if((ms-last_time) > 1000) { //run every 0.1s
     last_time = ms;
 
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
-    if (drv_status.sg_result > 1010) { // Kein Wiederstand
-      if (OCR1A > MAX_SPEED) OCR1A -= 10;
+    if (drv_status.sg_result > 1015) { // Kein Wiederstand
+      if (OCR1A > MAX_SPEED) OCR1A -= 1;
     }
     else { // Wiederstand
-      if (OCR1A < MAX_SPEED) OCR1A += 10;
+      if (OCR1A < MAX_SPEED) OCR1A += 20;
     }
   }
 }
