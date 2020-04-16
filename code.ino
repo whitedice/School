@@ -17,7 +17,7 @@
 #include <TMCStepper.h>
 
 #define MAX_SPEED        40 // In timer value
-#define MIN_SPEED      1000
+#define MIN_SPEED      5000
 
 #define STALL_VALUE      50 // [-64..63]
 
@@ -108,7 +108,8 @@ void loop() {
       else if (read_byte == '1') { TIMSK1 |=  (1 << OCIE1A); digitalWrite( EN_PIN,  LOW ); }
     #endif
     else if (read_byte == '+') { if (OCR1A > MAX_SPEED) OCR1A -= 20; }
-    else if (read_byte == '-') { if (OCR1A < MIN_SPEED) OCR1A += 30; }
+    else if (read_byte == '-') { if (OCR1A < MIN_SPEED) OCR1A += 100; }
+    else if (read_byte == '.') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
   if((ms-last_time) > 500) { //run every 0.1s
@@ -118,7 +119,8 @@ void loop() {
     drv_status.sr = driver.DRV_STATUS();
 
     int max_value = 1023;
-    int wiederstand = 100 - ((int)drv_status.sg_result / 1023 * 100);
+    float percent = 1 - drv_status.sg_result / 1023
+    int wiederstand = int(percent * 100)
 
     Serial.print("Wiederstand: ");
     Serial.print(wiederstand);
