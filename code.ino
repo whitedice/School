@@ -125,7 +125,7 @@ void loop() {
       if (OCR1A > MAX_SPEED) a += 1;
       if (a = 100) // langsamer hoch gehen!
       {
-        println("werde schneller!")
+        println("werde schneller!");
         a = 0;
         OCR1A -= 10;
       }
@@ -134,7 +134,7 @@ void loop() {
       if (OCR1A < MAX_SPEED) b += 1;
       if (a = 100) // langsamer runter gehen!
       {
-        println("werde langsamer!")
+        println("werde langsamer!");
         b = 0;
         OCR1A += 100;
       }
