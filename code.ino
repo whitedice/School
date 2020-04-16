@@ -108,7 +108,7 @@ void loop() {
       else if (read_byte == '1') { TIMSK1 |=  (1 << OCIE1A); digitalWrite( EN_PIN,  LOW ); }
     #endif
     else if (read_byte == '+') { if (OCR1A > MAX_SPEED) OCR1A -= 20; }
-    else if (read_byte == '-') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
+    else if (read_byte == '-') { if (OCR1A < MIN_SPEED) OCR1A += 30; }
   }
 
   if((ms-last_time) > 500) { //run every 0.1s
@@ -117,11 +117,9 @@ void loop() {
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
-    if (drv_status.sg_result > 1000) {
-      println("Du drückst");
-    }
-    else {
-      println("Du drückst nicht");
-    }
+    int max_value = 1023
+    int wiederstand = 100 - ((int)drv_status.sg_result / 1023 * 100)
+
+    Serial.println("wiederstand: " + percent + "%");
   }
 }
