@@ -21,13 +21,13 @@
 
 #define STALL_VALUE      15 // [-64..63]
 
-#define EN_PIN           38 // Enable
-#define DIR_PIN          55 // Direction
-#define STEP_PIN         54 // Step
-#define CS_PIN           42 // Chip select
-#define SW_MOSI          66 // Software Master Out Slave In (MOSI)
-#define SW_MISO          44 // Software Master In Slave Out (MISO)
-#define SW_SCK           64 // Software Slave Clock (SCK)
+#define EN_PIN           7 // Enable
+#define DIR_PIN          4 // Direction
+#define STEP_PIN         5 // Step
+#define CS_PIN           10 // Chip select
+#define SW_MOSI          11 // Software Master Out Slave In (MOSI)
+#define SW_MISO          12 // Software Master In Slave Out (MISO)
+#define SW_SCK           13 // Software Slave Clock (SCK)
 
 #define R_SENSE 0.11 // Match to your driver
                       // SilentStepStick series use 0.11
