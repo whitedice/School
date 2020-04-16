@@ -112,18 +112,17 @@ void loop() {
     else if (read_byte == '.') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
-  if((ms-last_time) > 500) { //run every 0.1s
+  if((ms-last_time) > 100) { //run every 0.1s
     last_time = ms;
 
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
-    int max_value = 1023;
-
-    int wiederstand = 100 - int((drv_status.sg_result * 100) / max_value);
-
-    Serial.print("Wiederstand: ");
-    Serial.print(wiederstand);
-    Serial.println(" %");
+    if (drv_status.sg_result > 1010) { // Kein Wiederstand
+      if (OCR1A > MAX_SPEED) OCR1A -= 10;
+    }
+    else { // Wiederstand
+      if (OCR1A < MAX_SPEED) OCR1A += 10;
+    }
   }
 }
