@@ -19,7 +19,7 @@
 #define MAX_SPEED        40 // In timer value
 #define MIN_SPEED      1000
 
-#define STALL_VALUE      15 // [-64..63]
+#define STALL_VALUE      -20 // [-64..63]
 
 #define EN_PIN           7 // Enable
 #define DIR_PIN          4 // Direction
@@ -111,7 +111,7 @@ void loop() {
     else if (read_byte == '-') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
-  if((ms-last_time) > 100) { //run every 0.1s
+  if((ms-last_time) > 500) { //run every 0.1s
     last_time = ms;
 
     DRV_STATUS_t drv_status{0};
