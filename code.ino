@@ -19,7 +19,7 @@
 #define MAX_SPEED       1000 // In timer value
 #define MIN_SPEED      5000
 
-#define STALL_VALUE      50 // [-64..63]
+#define STALL_VALUE      40 // [-64..63]
 
 #define EN_PIN           7 // Enable
 #define DIR_PIN          4 // Direction
@@ -125,6 +125,7 @@ void loop() {
       if (OCR1A > MAX_SPEED) a += 1;
       if (a = 100) // langsamer hoch gehen!
       {
+        println("werde schneller!")
         a = 0;
         OCR1A -= 10;
       }
@@ -133,6 +134,7 @@ void loop() {
       if (OCR1A < MAX_SPEED) b += 1;
       if (a = 100) // langsamer runter gehen!
       {
+        println("werde langsamer!")
         b = 0;
         OCR1A += 100;
       }
