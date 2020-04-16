@@ -68,7 +68,7 @@ void setup() {
   driver.begin();
   driver.toff(4);
   driver.blank_time(24);
-  driver.rms_current(400); // mA
+  driver.rms_current(1000); // mA
   driver.microsteps(16);
   driver.TCOOLTHRS(0xFFFFF); // 20bit max
   driver.THIGH(0);
@@ -119,8 +119,12 @@ void loop() {
     drv_status.sr = driver.DRV_STATUS();
 
     int max_value = 1023;
-    float percent = 1 - drv_status.sg_result / 1023
-    int wiederstand = int(percent * 100)
+
+    double percent = drv_status.sg_result / max_value;
+    percent = 1 - percent;
+    percent = percent * 100;
+
+    int wiederstand = int(percent);
 
     Serial.print("Wiederstand: ");
     Serial.print(wiederstand);
