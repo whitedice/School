@@ -117,8 +117,8 @@ void loop() {
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
-    int max_value = 1023
-    int wiederstand = 100 - ((int)drv_status.sg_result / 1023 * 100)
+    int max_value = 1023;
+    int wiederstand = 100 - ((int)drv_status.sg_result / 1023 * 100);
 
     Serial.println("wiederstand: " + percent + "%");
   }
