@@ -117,9 +117,11 @@ void loop() {
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
-    Serial.print("0 ");
-    Serial.print(drv_status.sg_result, DEC);
-    Serial.print(" ");
-    Serial.println(driver.cs2rms(drv_status.cs_actual), DEC);
+    if (drv_status.sg_result > 1000) {
+      println("Du drückst");
+    }
+    else {
+      println("Du drückst nicht");
+    }
   }
 }
