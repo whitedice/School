@@ -36,7 +36,7 @@
                       // Watterott TMC5160 uses 0.075
 
 // Select your stepper driver type
-//TMC2130Stepper driver(CS_PIN, R_SENSE);                           // Hardware SPI
+TMC2130Stepper driver(CS_PIN, R_SENSE);                           // Hardware SPI
 //TMC2130Stepper driver(CS_PIN, R_SENSE, SW_MOSI, SW_MISO, SW_SCK); // Software SPI
 //TMC5160Stepper driver(CS_PIN, R_SENSE);
 //TMC5160Stepper driver(CS_PIN, R_SENSE, SW_MOSI, SW_MISO, SW_SCK);
