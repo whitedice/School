@@ -19,7 +19,7 @@
 #define MAX_SPEED        40 // In timer value
 #define MIN_SPEED      1000
 
-#define STALL_VALUE      -20 // [-64..63]
+#define STALL_VALUE      50 // [-64..63]
 
 #define EN_PIN           7 // Enable
 #define DIR_PIN          4 // Direction
