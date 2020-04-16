@@ -94,6 +94,7 @@ void setup() {
   }
 }
 
+int a = 0;
 void loop() {
   static uint32_t last_time=0;
   uint32_t ms = millis();
@@ -112,14 +113,20 @@ void loop() {
     else if (read_byte == '.') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
-  if((ms-last_time) > 1000) { //run every 0.1s
+  if((ms-last_time) > 100) { //run every 0.1s
     last_time = ms;
 
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
-    if (drv_status.sg_result > 1015) { // Kein Wiederstand
-      if (OCR1A > MAX_SPEED) OCR1A -= 1;
+    Serial.println(drv_status.sg_result);
+    if (drv_status.sg_result > 1020) { // Kein Wiederstand
+      if (OCR1A > MAX_SPEED) a += 1;
+      if (a = 100) // langsamer hoch gehen!
+      {
+        a = 0;
+        OCR1A -= 1;
+      }
     }
     else { // Wiederstand
       if (OCR1A < MAX_SPEED) OCR1A += 20;
