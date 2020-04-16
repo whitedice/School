@@ -1,4 +1,4 @@
-**
+/**
  * Author Teemu Mäntykallio
  *
  * Plot TMC2130 or TMC2660 motor load using the stallGuard value.
