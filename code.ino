@@ -120,6 +120,8 @@ void loop() {
     int max_value = 1023;
     int wiederstand = 100 - ((int)drv_status.sg_result / 1023 * 100);
 
-    Serial.println("wiederstand: " + percent + "%");
+    Serial.print("Wiederstand: ");
+    Serial.print(wiederstand);
+    Serial.println(" %");
   }
 }
