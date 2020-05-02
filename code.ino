@@ -17,7 +17,7 @@
 #include <TMCStepper.h>
 
 #define MAX_SPEED       1000 // In timer value
-#define MIN_SPEED      5000
+#define MIN_SPEED      3000
 
 #define STALL_VALUE      50 // [-64..63]
 
@@ -68,7 +68,7 @@ void setup() {
   driver.begin();
   driver.toff(4);
   driver.blank_time(24);
-  driver.rms_current(2000); // mA
+  driver.rms_current(400); // mA
   driver.microsteps(16);
   driver.TCOOLTHRS(0xFFFFF); // 20bit max
   driver.THIGH(0);
@@ -94,56 +94,43 @@ void setup() {
   }
 }
 
-int a = 0;
-int b = 0;
 void loop() {
   static uint32_t last_time=0;
   uint32_t ms = millis();
 
   while(Serial.available() > 0) {
     int8_t read_byte = Serial.read();
-    #ifdef USING_TMC2660
-      if (read_byte == '0')      { TIMSK1 &= ~(1 << OCIE1A); driver.toff(0); }
-      else if (read_byte == '1') { TIMSK1 |=  (1 << OCIE1A); driver.toff(driver.savedToff()); }
-    #else
-      if (read_byte == '0')      { TIMSK1 &= ~(1 << OCIE1A); digitalWrite( EN_PIN, HIGH ); }
-      else if (read_byte == '1') { TIMSK1 |=  (1 << OCIE1A); digitalWrite( EN_PIN,  LOW ); }
-    #endif
+
+    if (read_byte == '0')      { TIMSK1 &= ~(1 << OCIE1A); digitalWrite( EN_PIN, HIGH ); }
+    else if (read_byte == '1') { TIMSK1 |=  (1 << OCIE1A); digitalWrite( EN_PIN,  LOW ); }
     else if (read_byte == '+') { if (OCR1A > MAX_SPEED) OCR1A -= 20; }
     else if (read_byte == '-') { if (OCR1A < MIN_SPEED) OCR1A += 100; }
     else if (read_byte == '.') { if (OCR1A < MIN_SPEED) OCR1A += 20; }
   }
 
-  if((ms-last_time) > 50) { //run every 0.1s
+  if((ms-last_time) > 1000) { //run every 0.1s
     last_time = ms;
 
     DRV_STATUS_t drv_status{0};
     drv_status.sr = driver.DRV_STATUS();
 
+    // Ergebnis ausgeben
     Serial.println(drv_status.sg_result);
-    if (drv_status.sg_result > 1020) { // Kein Wiederstand
+
+    // Geschwindigkeit anpassen
+    if (drv_status.sg_result > 1000) {
       if (OCR1A > MAX_SPEED)
-      {
-        a += 1;
-      }
-      if (a = 10000) // langsamer hoch gehen!
-      {
-        Serial.println("werde schneller!");
-        a = 0;
-        OCR1A -= 10;
-      }
+        {
+          Serial.println("werde schneller!");
+          OCR1A -= 1;
+        }
     }
-    else { // Wiederstand
-      if (OCR1A < MAX_SPEED)
-      {
-        b += 1;
-      }
-      if (a = 10000) // langsamer runter gehen!
-      {
-        Serial.println("werde langsamer!");
-        b = 0;
-        OCR1A += 100;
-      }
+    else {
+      if (OCR1A < MIN_SPEED)
+        {
+          Serial.println("werde langsamer!");
+          OCR1A += 1;
+        }
     }
   }
 }
