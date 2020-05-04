@@ -1,4 +1,4 @@
-program Hausaufgabe4m3;
+program Hausaufgabe4m2;
 
 {$APPTYPE CONSOLE}
 
@@ -6,19 +6,18 @@ uses
   SysUtils;
 
 var wort:string;
-var len:integer;
 
-function umdrehen(word:string; step:integer):string;
+function umdrehen(ow,nw:string):string;
 begin
-  if step > 0 then
+  if length(ow) > 0 then
   begin
-    word:= word + word[step];
-    umdrehen:= umdrehen(word,step-1);
+    nw:= nw + ow[length(ow)];
+    delete(ow,length(ow),1);
+    umdrehen:= umdrehen(ow,nw);
   end
   else
   begin
-    delete(word,1,len);
-    umdrehen:=word;
+    umdrehen:=nw;
   end;
 end;
 
@@ -28,7 +27,6 @@ begin
   writeln('');
   writeln('');
 
-  len:= length(wort);
-  writeln('Das Ergebnis lautet: ' + umdrehen(wort, len));
+  writeln('Das Ergebnis lautet: ' + umdrehen(wort,''));
   readln;
 end.
