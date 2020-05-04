@@ -30,6 +30,5 @@ begin
 
   len:= length(wort);
   writeln('Das Ergebnis lautet: ' + umdrehen(wort, len));
-
   readln;
 end.
