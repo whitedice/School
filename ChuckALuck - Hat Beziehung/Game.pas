@@ -9,10 +9,12 @@ type
   TGame = class
 
   private
-
+    w1,w2,w3:TWuerfel;
+    Spielfeld:TSpielfeld;
+    Konto:TKonto;
 
   public
-    constructor create(startkapital:integer);
+    constructor create(Startkapital:integer);
     procedure spielen;
     procedure tippen(tipp:integer);
     function gKontostand:integer;
@@ -22,25 +24,19 @@ type
     function gWC:integer;
   end;
 
-  var
-    w1,w2,w3:TWuerfel;
-    Spielfeld:TSpielfeld;
-    Konto:TKonto;
-
 {generiere Die Variablen und weiﬂe ihnen die passende Klasse zu}
 
 
 {implimentiere die Features}
 implementation
 
-  constructor TGame.create(startkapital:integer);
+  constructor TGame.create(Startkapital:integer);
     begin
       w1:=TWuerfel.create;
       w2:=TWuerfel.create;
       w3:=TWuerfel.create;
-
       Spielfeld:=TSpielfeld.create;
-      Konto:=TKonto.create(startkapital);
+      Konto:=TKonto.create(Startkapital);
     end;
 
   procedure TGame.spielen;

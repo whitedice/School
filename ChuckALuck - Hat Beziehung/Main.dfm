@@ -100,7 +100,7 @@ object Form1: TForm1
     Top = 385
     Width = 440
     Height = 71
-    Caption = 'Tipp setzen'
+    Caption = 'PLAY'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15

@@ -37,7 +37,6 @@ implementation
 procedure TForm1.btStartClick(Sender: TObject);
 begin
   GameUnit.spielen;
-
   pw1.Caption:= IntToStr(GameUnit.gWA);
   pw2.Caption:= IntToStr(GameUnit.gWB);
   pw3.Caption:= IntToStr(GameUnit.gWC);

@@ -1,6 +1,7 @@
 unit uSpielbrett;
 
 interface
+
   type
   TSpielfeld = class
 

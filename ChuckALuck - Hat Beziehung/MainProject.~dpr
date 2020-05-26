@@ -5,7 +5,8 @@ uses
   Main in 'Main.pas' {Form1},
   uWuerfel in 'uWuerfel.pas',
   uKonto in 'uKonto.pas',
-  uSpielbrett in 'uSpielbrett.pas';
+  uSpielbrett in 'uSpielbrett.pas',
+  Game in 'Game.pas';
 
 {$R *.res}
 

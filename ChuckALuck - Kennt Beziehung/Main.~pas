@@ -39,13 +39,14 @@ implementation
 
 procedure TForm1.btStartClick(Sender: TObject);
 begin
-  pw1.Caption:= IntToStr(Spiel.gWA.getAugen);
-  pw2.Caption:= IntToStr(Spiel.gWB.getAugen);
-  pw3.Caption:= IntToStr(Spiel.gWC.getAugen);
+  pw1.Caption:= IntToStr(w1.getAugen);
+  pw2.Caption:= IntToStr(w2.getAugen);
+  pw3.Caption:= IntToStr(w3.getAugen);
 
-  Spiel.tippen(rgSpielbrett.ItemIndex + 1);
-
-   pKonto.Caption:= IntToStr(Spiel.gKontostand());
+  Spielfeld.setzen(rgSpielbrett.ItemIndex + 1);
+  GameUnit.spielen;
+  
+  pKonto.Caption:= IntToStr(Konto.getStand());
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -56,7 +57,7 @@ begin
   Spielfeld:=TSpielfeld.create;
   Konto:=TKonto.create(100);
 
-  GameUnit:=TSpiel.create(w1,w2,w3,Konto,Spielfeld);
+  GameUnit:=TGame.create(w1,w2,w3,Konto,Spielfeld);
   pKonto.Caption:= IntToStr(Konto.getStand());
 end;
 

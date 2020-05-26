@@ -16,12 +16,6 @@ type
   public
     constructor create(wA,wB,wC:TWuerfel; k:TKonto; sp:TSpielfeld);
     procedure spielen;
-    procedure tippen(tipp:integer);
-    function gKontostand:integer;
-
-    function gWA:integer;
-    function gWB:integer;
-    function gWC:integer;
   end;
 
 {generiere Die Variablen und weiﬂe ihnen die passende Klasse zu}
@@ -42,8 +36,7 @@ implementation
 
   procedure TGame.spielen;
     begin
-      w1.werfen; w2.werfen; w3.werfen;
-
+    w1.werfen; w2.werfen; w3.werfen;
       if Spielfeld.getTipp = w1.getAugen then
         begin
           Konto.trans(1);
@@ -63,30 +56,5 @@ implementation
         begin
           Konto.trans(-1);
         end;
-    end;
-
-  procedure TGame.tippen(tipp:integer);
-    begin
-      Spielfeld.setzen(tipp);
-    end;
-
-  function TGame.gKontostand;
-    begin
-      result:=Konto.getStand;
-    end;
-
-  function TGame.gWA;
-    begin
-      result:=w1.getAugen;
-    end;
-
-  function TGame.gWB;
-    begin
-      result:=w2.getAugen;
-    end;
-
-  function TGame.gWC;
-    begin
-      result:=w3.getAugen;
     end;
 end.
