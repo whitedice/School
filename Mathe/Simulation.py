@@ -150,5 +150,5 @@ def printList():
 ## STARTEN DER SIMULATION
 ##########################################
 
-startSimulation(People=1000, Days=25, Ansteckungsfaktor=20, Begegnungen=5, AussortiertAb=5, tägl_Impungen=5)  # People, Days, R0, Begegnungen, Durchläufe (bis man aussortiert wird), Impfungen
+startSimulation(People=1000, Days=25, Ansteckungsfaktor=20, Begegnungen=5, AussortiertAb=5, tägl_Impungen=5)
 printList()
